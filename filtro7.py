@@ -1,4 +1,4 @@
-from  filtros import *
+from filtros import *
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.signal import butter, iirnotch
@@ -12,16 +12,21 @@ bandas = [
 ]
 # gravacao
 T = 2
-fs=44100
-gain_db=0
-Q=1
+fs = 44100
+gain_db = 0
+Q = 1
 numAmostras = fs*T
-audio = sd.rec(int(numAmostras),fs, channels=1)
+audio = sd.rec(int(numAmostras), fs, channels=1)
 sd.wait()
 # cria equacao
 magnitudes = np.arange(start=-10, stop=12, step=2)
-print(magnitudes)
-gain_db=float(input("ganho em db"))
-f0=0
-Q=1
-b, a = peaking_eq(f0,gain_db,Q,fs)
+
+while True:
+    f0 = int(input("Banda da frequencia (Hz): "))
+    if not f0:
+        break
+    gain_db = float(input("Ganho em dB: "))
+    Q = 1
+    b, a = peaking_eq(f0, gain_db, Q, fs)
+
+print("Saiu do loop")

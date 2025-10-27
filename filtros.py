@@ -41,12 +41,13 @@ def plot_filter_response(b, a, fs, title="Filter Response"):
     plt.ylim(-15, 15)
     plt.show()
 
-# Parameters
-fs = 44100         # Sampling rate (Hz)
-f0 = 1000          # Center frequency (Hz)
-gain_db = -6        # Gain in dB
-Q = 1.0            # Quality factor
+if __name__ == "__main__":
+    # Parameters
+    fs = 44100         # Sampling rate (Hz)
+    f0 = 1000          # Center frequency (Hz)
+    gain_db = -6        # Gain in dB
+    Q = 1.0            # Quality factor
 
-# Design and plot
-b, a = peaking_eq(f0, gain_db, Q, fs)
-plot_filter_response(b, a, fs, f"Peaking EQ at {f0} Hz, Gain = {gain_db} dB")
+    # Design and plot
+    b, a = peaking_eq(f0, gain_db, Q, fs)
+    plot_filter_response(b, a, fs, f"Peaking EQ at {f0} Hz, Gain = {gain_db} dB")
