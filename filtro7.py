@@ -1,7 +1,4 @@
-<<<<<<< Updated upstream
-# oi
 from  filtros import *
-=======
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.signal import butter, iirnotch
@@ -15,4 +12,3 @@ bandas = [
 
 magnitudes = np.arange(start=-10, stop=12, step=2)
 print(magnitudes)
->>>>>>> Stashed changes
