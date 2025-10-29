@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.signal import freqz
+from scipy.signal import freqz, lfilter
 
 def peaking_eq(f0, gain_db, Q, fs):
     """
@@ -39,8 +39,61 @@ def plot_filter_response(b, a, fs, title="Filter Response"):
     plt.ylabel('Gain [dB]')
     plt.grid()
     plt.ylim(-15, 15)
-    plt.show()
-
+    # plt.show()
+def descobreQ(f):
+    bandas = [
+    20, 32, 64,
+    125, 250, 500,
+    1e3, 2e3, 4e3,
+    8e3, 16e3, 20e3
+]
+    if f<=bandas[0]:
+        q=0.1
+    elif f<=bandas[1]:
+        q=0.5
+    elif f<=bandas[2]:
+        q=0.85
+    elif f<=bandas[3]:
+        q=2.5
+    elif f<=bandas[4]:
+        q=3.75
+    elif f<=bandas[5]:
+        q=6.5
+    elif f<=bandas[6]:
+        q=14
+    elif f<=bandas[7]:
+        q=18
+    elif f<=bandas[8]:
+        q=55
+    elif f<=bandas[9]:
+        q=55
+    elif f<=bandas[10]:
+        q=40
+    elif f<=bandas[11]:
+        q=10
+    return q
+def trata_audio(audio,b, a):
+    tone = []
+    for t1 in range(len(audio)):
+        t2=float(audio[t1])
+        if t2 == 0:
+            t2=float(0.0001)
+        tone.append(t2)
+    y=[tone[0],tone[1]]
+    print(y)
+    print(audio[0],audio[1])
+    # k=2
+    # while k<len(tone):
+    #     lista=[y[k-1],y[k-2],tone[k],tone[k-1],tone[k-2]]
+    #     yk= b[0]*y[k-1] + b[1]*y[k-2] + b[2] + a[0]*tone[k] + a[1]*tone[k-1] +a[2]*tone[k-2]
+    #     # print(tone[k])
+    #     if float(0) in lista:
+    #         yk=tone[k]
+    #     y.append(yk)
+    #     k+=1
+    # ynp = np.array(y)
+    ynp = lfilter(b,a,tone)
+    return ynp
 if __name__ == "__main__":
     # Parameters
     fs = 44100         # Sampling rate (Hz)
